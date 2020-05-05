@@ -1,0 +1,96 @@
+<h2 class="page-header">Pending Jobs</h2>
+<form method="post" action="/jobs/addJob">
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <!-- Table -->
+	  <table 
+	  id="table" 
+	  data-toggle="table"
+	  data-pagination="true"
+	  data-search="true">
+	      <thead>
+
+		  </thead>
+
+	  </table>
+	</div>
+
+	<button id="add" class="btn btn-primary">
+		<i class="glyphicon glyphicon-add"></i> Add
+	</button>
+
+
+</form>
+
+<script>
+
+function initTable() {
+	$('#table').bootstrapTable('destroy').bootstrapTable({
+		id: 'table',
+		url: '/fetchData',
+		name: 'table',
+		columns: [
+			{
+				field: 'WOT',
+				title: 'WOT',
+				sortable: true
+			},
+
+			{
+				field: 'partner',
+				title: 'Partner',
+				sortable: true
+			},
+
+			{
+				field: 'address',
+				title: 'Address',
+				sortable: true
+
+			},
+			{
+				field: 'dateAssigned',
+				title: 'Date Assigned',
+				sortable: true
+
+			},
+			{
+				field: 'status',
+				title: 'Status',
+				sortable: true
+
+			}
+		]
+	});
+};
+
+
+
+$('#table').on('click-row.bs.table', function (row, $element) {
+    event.preventDefault();
+	location.href='/jobs/editJob?id='+$element._id;
+
+
+   
+});
+$('#table').on('dbl-click-row.bs.table', function (row, $element) {
+    event.preventDefault();
+	 $.ajax({
+        type: 'POST',
+        url: '/updateJob',
+        contentType: 'application/json',
+        data: JSON.stringify($element),
+        success: function(data) {
+            //console.log(data);
+
+        }
+    }).done(function ( ) {
+    	initTable();
+    });
+   
+});
+
+ $(function() {
+    initTable();
+  })
+</script>
