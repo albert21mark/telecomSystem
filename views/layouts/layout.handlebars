@@ -3,55 +3,87 @@
 <script src="/js/bootstrap-table.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBMpprPiaBEz_6FN6QsvSQDa-WHUqf1hw&libraries=places"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style type="text/css">
+    body {
+      min-height: 75rem;
+      padding-top: 4.5rem;
+    }
+    .clickable {
+        cursor:pointer;
+    }
+  </style>
 	<title>Telecom System</title>
   <link rel="stylesheet" href="/css/bootstrap-table.min.css">
  <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Rapid Action Fibre</h5>
 
-      {{#if user}}
-        <nav class="my-2 my-md-0 mr-md-3">
-          <a class="p-2 text-dark" href="/">Home</a>
-        </nav>
-        <a class="btn btn-outline-primary" href="/users/logout">Logout</a>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Rapid Action Fibre</a>
 
-      {{else}}
-        <a class="btn btn-outline-primary" href="/users/register">Register</a>
-      {{/if}}
-    </div>
-<div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-        	{{#if success_msg}}
-           		 <div class="alert alert-success">{{success_msg}}</div>
-	          {{/if}}
-
-	          {{#if error_msg}}
-	            <div class="alert alert-danger">{{error_msg}}</div>
-	          {{/if}}
-
-	          {{#if error}}
-	            <div class="alert alert-danger">{{error}}</div>
-	          {{/if}}
-        	{{{body}}}
-
-    	  </div>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+        {{#if user}}
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/users/users">Users</a>
+              </li>
+            </ul>
+          {{/if}}
       
-      </div>
+    </div>
 
-      <footer class="footer">
-        <p>&copy; 2020 Layag</p>
-      </footer>
+    {{#if user}}
+      <a  class="btn ml-auto mr-1 btn-outline-primary" href="/users/logout">Logout</a>
 
-    </div> <!-- /container -->
+    {{else}}
+      <a  class="btn ml-auto mr-1 btn-outline-primary" href="/users/register">Register</a>
+
+    {{/if}}
+</nav>
 
 
+<main role="main" class="container">
+  <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+          	{{#if success_msg}}
+             		 <div class="alert alert-success">{{success_msg}}</div>
+  	          {{/if}}
+
+  	          {{#if error_msg}}
+  	            <div class="alert alert-danger">{{error_msg}}</div>
+  	          {{/if}}
+
+  	          {{#if error}}
+  	            <div class="alert alert-danger">{{error}}</div>
+  	          {{/if}}
+          	{{{body}}}
+
+      	  </div>
+        
+        </div>
+
+        <footer class="footer">
+          <p>&copy; 2020 Layag</p>
+        </footer>
+
+  </div> <!-- /container -->
+</main>
 </body>
 </html>
 

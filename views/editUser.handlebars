@@ -1,0 +1,49 @@
+<h2 class="page-header">Edit User</h2>
+<form method="post" action="/users/editUserSubmit">
+   <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" placeholder="Name" name="name" value="{{nameValue}}">
+  </div>
+   <div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" placeholder="Email" name="email" value="{{emailValue}}">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" placeholder="Password" name="password" value="{{passwordValue}}">
+  </div>
+  <div class="form-group">
+    <label>Confirm Password</label>
+    <input type="password" class="form-control" placeholder="Password" name="password2" value="{{password2Value}}">
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <label>Role</label>
+      <div class="form-group">
+        <select id="role" class="form-control" name="role">
+          <option>{{roleValue}}</option>
+          <option>User</option>
+          <option>Admin</option>
+        </select> 
+      </div>
+    </div>
+    <div class="col-sm">
+      <label>Status</label>
+      <div class="form-group">
+        <select id="status" class="form-control" name="status">
+          <option>{{statusValue}}</option>
+          <option>Active</option>
+          <option>Inactive</option>
+          <option>Delete</option>
+        </select> 
+      </div>
+    </div>
+  </div>
+</div>
+
+  <button type="submit" class="btn btn-outline-success">Submit</button>
+  <a class="btn btn-primary" href="/users/users">Back</a>
+  <input type="hidden" name="hiddenID" value="{{hiddenValueID}}">
+</form>

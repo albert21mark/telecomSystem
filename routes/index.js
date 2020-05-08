@@ -6,8 +6,10 @@ var jobsModel = require('../models/jobs')
 //get homepage
 router.get('/',ensureAuthenticated, function(req,res){
 	res.render('index');
+	var query = { status: { $ne: 'Delete' } }
+
 	router.route("/fetchData").get(function(req, res) {
-	  jobsModel.find({}, function(err, result) {
+	  jobsModel.find(query, function(err, result) {
 	    if (err) {
 	      res.send(err);
 	    } else {

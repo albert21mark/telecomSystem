@@ -1,4 +1,4 @@
-<h2 class="page-header">Pending Jobs</h2>
+<h2 class="page-header">Listed Jobs</h2>
 <form method="post" action="/jobs/addJob">
 	<div class="panel panel-default">
 	  <!-- Default panel contents -->
@@ -15,9 +15,8 @@
 	  </table>
 	</div>
 
-	<button id="add" class="btn btn-primary">
-		<i class="glyphicon glyphicon-add"></i> Add
-	</button>
+	<button id="add" class="btn btn-primary">Add</button>
+
 
 
 </form>
@@ -33,25 +32,34 @@ function initTable() {
 			{
 				field: 'WOT',
 				title: 'WOT',
-				sortable: true
+				sortable: true,
+				class: 'clickable'
 			},
 
 			{
 				field: 'partner',
 				title: 'Partner',
-				sortable: true
+				sortable: true,
+				class: 'clickable'
 			},
-
+			{
+				field: 'jobType',
+				title: 'Type of Job',
+				sortable: true,
+				class: 'clickable'
+			},
 			{
 				field: 'address',
 				title: 'Address',
-				sortable: true
+				sortable: true,
+				class: 'clickable'
 
 			},
 			{
 				field: 'dateAssigned',
 				title: 'Date Assigned',
-				sortable: true
+				sortable: true,
+				class: 'clickable'
 
 			},
 			{

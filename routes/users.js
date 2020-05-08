@@ -11,7 +11,130 @@ router.get('/register', function(req,res){
 router.get('/login', function(req,res){
 	res.render('login');
 })
+router.get('/users', function(req,res){
+	res.render('users');
+	var query = { status: { $ne: 'Delete' } }
+	router.route("/fetchDataUsers").get(function(req, res) {
+	  User.find(query, function(err, result) {
+	    if (err) {
+	      res.send(err);
+	    } else {
+	      res.send(result);
+	    }
+	  });
+	});
+	
+})
 
+router.post('/addUser', function(req,res){
+	res.render('addUser');
+})
+
+router.post('/addUserSubmit', function(req,res){
+	var name = req.body.name;
+	var email = req.body.email;
+	var username = req.body.username;
+	var password = req.body.password;
+	var password2 = req.body.password2;
+	var role = req.body.role;
+	var status = req.body.status;
+	//validation
+	req.checkBody('name', 'Name is required').notEmpty();
+	req.checkBody('email', 'Email is required').notEmpty();
+	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('password', 'Password is required').notEmpty();
+	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+
+	var errors = req.validationErrors();
+	if(errors){
+		res.render('addUser',{
+			nameValue:name,
+			emailValue:email,
+			passwordValue:password,
+			password2Value:password2,
+			rolseValue:role,
+			errors:errors
+
+		})
+	}else{
+		var newUser = new User({
+			name: name,
+			email: email,
+			password: password,
+			role: role,
+			status: status
+		})
+
+		User.createUser(newUser, function(err, user){
+			if(err) throw err;
+			//console.log(user);
+
+
+		});
+		req.flash('success_msg', 'User successfully added.');
+		res.redirect('/users/users');
+	}
+})
+router.get('/editUser', function(req,res){
+	var query = {_id:req.query.id}
+	User.findOne(query, function(err, user){
+		if(err) throw err;
+		res.render('editUser',{
+			nameValue: user.name,
+			emailValue: user.email,
+			passwordValue: user.password,
+			password2Value: user.password,
+			roleValue: user.role,
+			statusValue: user.status,
+			hiddenValueID: req.query.id
+		});
+	});
+})
+router.post('/editUserSubmit', function(req,res){
+	var userID = { _id:  req.body.hiddenID };
+	var name = req.body.name;
+	var email = req.body.email;
+	var username = req.body.username;
+	var password = req.body.password;
+	var password2 = req.body.password2;
+	var role = req.body.role;
+	var status = req.body.status;
+	//validation
+	req.checkBody('name', 'Name is required').notEmpty();
+	req.checkBody('email', 'Email is required').notEmpty();
+	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('password', 'Password is required').notEmpty();
+	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+
+	var errors = req.validationErrors();
+	if(errors){
+		res.render('editUser',{
+			nameValue:name,
+			emailValue:email,
+			passwordValue:password,
+			password2Value:password2,
+			roleValue:role,
+			statusValue: status,
+			errors:errors
+
+		})
+	}else{
+		var editedUser = {
+			name: name,
+			email: email,
+			password: password,
+			role: role,
+			status: status
+		}
+
+		
+		User.editUser(userID, editedUser, function(err, user){
+			if(err) throw err;
+		});
+		req.flash('success_msg', 'User successfully added.');
+		res.redirect('/users/users');
+	}
+})
 
 //register user
 router.post('/register', function(req,res){
@@ -41,16 +164,18 @@ router.post('/register', function(req,res){
 		var newUser = new User({
 			name: name,
 			email: email,
-			password: password
+			password: password,
+			role: 'User',
+			status: 'Active'
 		})
-
+		//console.log(newUser);
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			//console.log(user);
 
 
 		});
-		req.flash('success_msg', 'Successfull');
+		req.flash('success_msg', 'User successfully added.');
 		res.redirect('/users/login');
 	}
 })

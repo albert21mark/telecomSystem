@@ -7,10 +7,16 @@ var JobsSchema = mongoose.Schema({
 	ASID: {
 		type: String
 	},
+	jobType: {
+		type: String
+	},
 	partner: {
 		type: String
 	},
 	address: {
+		type: String
+	},
+	assignedTo: {
 		type: String
 	},
 	dateAssigned: {

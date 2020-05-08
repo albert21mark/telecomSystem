@@ -1,0 +1,59 @@
+<h2 class="page-header">Listed Users</h2>
+<form method="post" action="/users/addUser">
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <!-- Table -->
+	  <table 
+	  id="tableUsers" 
+	  data-toggle="table"
+	  data-pagination="true"
+	  data-search="true">
+	      <thead>
+
+		  </thead>
+
+	  </table>
+	</div>
+
+	<button id="add" class="btn btn-primary">Add</button>
+</form>
+
+<script>
+
+function initTable() {
+	$('#tableUsers').bootstrapTable('destroy').bootstrapTable({
+		id: 'table',
+		url: '/users/fetchDataUsers',
+		name: 'table',
+		columns: [
+			{
+				field: 'name',
+				title: 'Name',
+				sortable: true,
+				class: 'clickable'
+			},
+			{
+				field: 'email',
+				title: 'Email',
+				sortable: true,
+				class: 'clickable'
+			},
+			{
+				field: 'role',
+				title: 'Role',
+				sortable: true,
+				class: 'clickable'
+			}
+		]
+	});
+};
+$('#tableUsers').on('click-row.bs.table', function (row, $element) {
+    event.preventDefault();
+	location.href='/users/editUser?id='+$element._id;  
+});
+
+
+ $(function() {
+    initTable();
+  })
+</script>
