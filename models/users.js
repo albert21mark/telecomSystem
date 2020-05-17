@@ -56,7 +56,6 @@ module.exports.getUserByEmail = function(email, callback){
 	var query = {email: email}
 	User.findOne(query, callback);
 }
-
 module.exports.getAllUsers = function(req,res,callback){
 
 

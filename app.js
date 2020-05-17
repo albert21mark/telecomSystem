@@ -11,7 +11,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://admin:q1w2e3r4t5y6@52.62.127.13:27017/telecomSystem?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false');
+mongoose.connect('mongodb://admin:q1w2e3r4t5y6@3.24.232.22:28657/telecomSystem?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false');
+//mongoose.connect('mongodb://localhost/loginsystem');
 var db = mongoose.connection;
 
 var routes = require('./routes/index');

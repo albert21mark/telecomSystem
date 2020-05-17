@@ -166,7 +166,7 @@ router.post('/register', function(req,res){
 			email: email,
 			password: password,
 			role: 'User',
-			status: 'Active'
+			status: 'Inactive'
 		})
 		//console.log(newUser);
 		User.createUser(newUser, function(err, user){
@@ -187,9 +187,13 @@ passport.use(
   		if(!user){
   			return done(null, false, {message: 'Unknown User'});
   		}
+  		if(user.status=='Inactive'){
+  			return done(null, false, {message: 'Account currently disabled. Please advise admin.'});	
+  		}
 		User.comparePassword(password, user.password, function(err, isMatch){
 			if(err) throw err;	
 			if(isMatch){
+
 				return done(null, user);
 			}else{
 				return done(null, false, {message: 'Invalid Password'})
